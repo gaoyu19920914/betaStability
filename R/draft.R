@@ -69,10 +69,10 @@ colnames(varedf) <- c("bray.dist", "vare.envdist")
 # TODO: 3. add tryCatch for out of range 0~1 values
 # function: calculate stability based on predicted and measured distances[-1,1]
 calculate_stability <- function(predicted.dist, measured.dist){
-  if (predicted.dist > measured.dist){
-    return((predicted.dist - measured.dist)/(measured.dist -1))
+  if (measured.dist > predicted.dist){
+    return(-(measured.dist - predicted.dist)/(1-predicted.dist))
   } else {
-    return((measured.dist - predicted.dist)/measured.dist)
+    return((predicted.dist - measured.dist)/predicted.dist)
   }
 }
 
