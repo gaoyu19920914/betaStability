@@ -28,17 +28,6 @@
 #
 #   #### 3. relPred ####
 #
-#
-#
-#
-#
-#
-#   ##### 3.6 Machine learning 1. RandomForest ####
-#
-#   rf <- randomForest::randomForest(bray.dist ~ vare.envdist, data = varedf, replace = FALSE, importance = TRUE, proximity = TRUE)
-#   ##### 3.7 Machine learning 2. XGBoost ####
-#
-#
 #   ##### 3.8 predict community then calculate diversity ####
 #   # MicroEcoTools
 #   # specificity
