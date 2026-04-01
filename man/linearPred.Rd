@@ -23,8 +23,8 @@ The stability is calculated by comparing the predicted distance (based on the
 linear model) and the mean measured distance (based on betaDiv function).
 }
 \examples{
-varespec <- data(varespec)
-varechem <- data(varechem)
+data(varespec)
+data(varechem)
 example.comdist <- betaDiv(varespec)
 example.envdist <- dist(
   BBmisc::normalize(

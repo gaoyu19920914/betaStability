@@ -1,31 +1,31 @@
-#' calculation of stability using a generalized linear model.
+#' calculation of stability using a random forest model.
 #'
 #' This function will take the dissimilarity matrix and the environmental
-#' matrix as input, and calculate the stability of each site using a generalized
-#' linear model (gLM), where the contributions are constrained as non-negative
-#'  `lower.limits=0` to ensure the explanability of each coefficient.
-#' The stability is calculated by comparing the predicted distance (based on the
-#' linear model) and the mean measured distance (based on betaDiv function).
+#' matrix as input, and calculate the stability of each site using a random
+#' forest model to improve the prediction performance.
 #'
 #' @param comdist The community dissimilarity matrix
 #' @param envmeta The environmental metadata table/matrix
 #' @param sitenames The names of the site
+#' @param seed The random seed for reproducibility of the random forest model
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
-#' @importFrom glmnet cv.glmnet
+#' @importFrom randomForest randomForest
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- betaDiv(varespec)
-#' example.stability_GLM <- glmPred(example.comdist, varechem)
+#' example.stability_RF <- rfPred(example.comdist, varechem)
 #'
 #' @export
-glmPred <- function(comdist,
-                    envmeta,
-                    sitenames=NULL) {
+rfPred <- function(comdist,
+                   envmeta,
+                   sitenames=NULL,
+                   seed = 42) {
+  set.seed(seed)
   result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol =1))
   if (is.null(sitenames)){
     if(identical(labels(comdist), rownames(envmeta))){
@@ -71,29 +71,26 @@ glmPred <- function(comdist,
     trainingset <- df.ij.deltaenv.beta.norm[
       !(df.ij.deltaenv.beta.norm$i == n.site |
           df.ij.deltaenv.beta.norm$j == n.site) ,]
-    glm_predictors <- subset(trainingset, select = names(deltaenvnorm))
-    glm_beta <- subset(trainingset, select = c("beta"))
-    this.cv.glmnet <- cv.glmnet(as.matrix(glm_predictors),
-                                as.matrix(glm_beta),
-                                lower.limits = 0)
-    best_lambda <- this.cv.glmnet$lambda.min
-    coef(this.cv.glmnet, s = best_lambda)
-    beta_pred <- predict(this.cv.glmnet,
-                         newx = as.matrix(subset(validatingset,
-                                                 select=names(deltaenvnorm))),
-                         s = best_lambda)
-    # plot(as.matrix(subset(validatingset, select = c("beta"))),
-    #      beta_pred,
-    #      col = "blue",
-    #      xlab = "Observed Beta Diversity Indices",
-    #      ylab = "GLM Predicted Beta Diversity Indices")
-    # abline(0, 1, col = "red")
+    # rf_predictors <- subset(trainingset, select = names(deltaenvnorm))
+    rf_beta <- trainingset$beta
+
+    rf <- randomForest(rf_beta ~ .,
+                       data = trainingset[, !names(trainingset)
+                                          %in% c("i", "j", "beta")],
+                       replace = FALSE,
+                       importance = TRUE,
+                       proximity = TRUE,
+                       na.action = na.omit)
+
+    beta_pred <- predict(rf,
+                         validatingset[, names(deltaenvnorm)])
+
     othersites <- setdiff(sitenames, sitename)
     selected.dist <- dist_get(comdist, sitename, othersites)
     mean.measured.dist <- mean(selected.dist)
     result[n.site, 1] <- calcStability(mean(beta_pred), mean.measured.dist)
   }
-  colnames(result)[1] <- "stability_GLM"
+  colnames(result)[1] <- "stability_RF"
   rownames(result) <- sitenames
   return(result)
 }

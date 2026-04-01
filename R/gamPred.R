@@ -1,8 +1,12 @@
 #   ##### 3.5 GAMs (mgcv) prediction ####
 #' calculation of stability using an generalized additive model.
 #'
-#' TODO: fill this description
-#' This function ......
+#' This function will take the community count table and the environmental
+#' metadata table as input, and calculate the stability of each site using a
+#' generalized additive model (GAM). Alternatively, if no dissimilarity matrix
+#' of the community is provided, the function will calculate the community
+#' dissimilarity based on Bray-Curtis distance and use it. In GAM, the
+#' prediction results are expected to perform better than the linear models.
 #'
 #' @param comtable The community table
 #' @param envmeta The environmental metadata table/matrix
@@ -15,8 +19,8 @@
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
-#' varespec <- data(varespec)
-#' varechem <- data(varechem)
+#' data(varespec)
+#' data(varechem)
 #' example.stability_GAM <- gamPred(varespec, varechem)
 #'
 #' @export
@@ -40,11 +44,12 @@ gamPred <- function(comtable,
   y_GAM <- as.matrix(comdist)[lower.tri(comdist)]
   varnames <- colnames(envmeta)
   x_GAM <- lapply(varnames, function(v) {
-    m <- as.matrix(dist(varechem[[v]], method = GAM.dist.method))
+    m <- as.matrix(dist(envmeta[[v]], method = GAM.dist.method))
     m[lower.tri(m)]
   })
   x_GAM <- do.call(cbind, x_GAM)
   colnames(x_GAM) <- varnames
+
   data_GAM <- cbind(y = y_GAM, x_GAM)
   # TODO: make variables a parameter in function
   formula_GAM_str <- paste("y ~",

@@ -14,6 +14,7 @@ Imports:
     gdm,
     glmnet,
     mgcv,
+    randomForest,
     stats,
     usedist,
     vegan

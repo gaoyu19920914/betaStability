@@ -27,12 +27,16 @@ gamPred(
 a column vector of predicted stability values for each site
 }
 \description{
-TODO: fill this description
-This function ......
+This function will take the community count table and the environmental
+metadata table as input, and calculate the stability of each site using a
+generalized additive model (GAM). Alternatively, if no dissimilarity matrix
+of the community is provided, the function will calculate the community
+dissimilarity based on Bray-Curtis distance and use it. In GAM, the
+prediction results are expected to perform better than the linear models.
 }
 \examples{
-varespec <- data(varespec)
-varechem <- data(varechem)
+data(varespec)
+data(varechem)
 example.stability_GAM <- gamPred(varespec, varechem)
 
 }

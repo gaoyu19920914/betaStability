@@ -2,9 +2,16 @@
 % Please edit documentation in R/gdmPred.R
 \name{gdmPred}
 \alias{gdmPred}
-\title{calculation of stability using a (nonlinear) generalized dissimilarity model.}
+\title{calculation of stability using a generalized dissimilarity model.}
 \usage{
-gdmPred(comdist, envmeta, sitenames = NULL, X = NULL, Y = NULL)
+gdmPred(
+  comdist,
+  envmeta,
+  sitenames = NULL,
+  X = NULL,
+  Y = NULL,
+  geo_enabled = TRUE
+)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -16,17 +23,23 @@ gdmPred(comdist, envmeta, sitenames = NULL, X = NULL, Y = NULL)
 \item{X}{The X coordinates of the sites (optional, default: NULL)}
 
 \item{Y}{The Y coordinates of the sites (optional, default: NULL)}
+
+\item{geo_enabled}{Whether to include geographic info  (default: TRUE)}
 }
 \value{
 a column vector of predicted stability values for each site
 }
 \description{
-TODO: fill this description
-This function ......
+This function will take the community dissimilarity matrix and the
+environmental metadata table/matrix as input, and make predictions based on
+a generalized dissimilarity model (GDM), with optional geographic
+information (X and Y can be longitude and latitude). This model considers
+the nonlinear relationship between community dissimilarity and environmental
+distance, and can also include geographic distance as a predictor.
 }
 \examples{
-varespec <- data(varespec)
-varechem <- data(varechem)
+data(varespec)
+data(varechem)
 example.comdist <- betaDiv(varespec)
 example.stability_GDM <- gdmPred(example.comdist, varechem)
 

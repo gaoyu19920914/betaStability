@@ -19,14 +19,14 @@ a column vector of predicted stability values for each site
 \description{
 This function will take the diversity matrix and the environmental distance
 matrix as input, and calculate the stability of each site using multiple
-linear model. The stability is calculated by comparing the predicted distance
-(based on the multiple linear model) and the mean measured distance between
-the site and other sites (based on the difference of envmeta and
+linear model (ML). The stability is calculated by comparing the predicted
+distance (based on the multiple linear model) and the mean measured distance
+between the site and other sites (based on the difference of envmeta and
 the corresponding comdist).
 }
 \examples{
-varespec <- data(varespec)
-varechem <- data(varechem)
+data(varespec)
+data(varechem)
 example.comdist <- betaDiv(varespec)
 example.stability_ML <- mlPred(example.comdist, varechem)
 

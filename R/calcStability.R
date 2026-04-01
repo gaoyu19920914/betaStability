@@ -20,7 +20,6 @@
 #'
 #' @export
 calcStability <- function(predicted.dist, measured.dist){
-  # TODO: 3. add tryCatch for out of range 0~1 values
   tryCatch({
     if (!is.numeric(predicted.dist) || !is.numeric(measured.dist)) {
       stop("predicted.dist and measured.dist should be numeric values.")

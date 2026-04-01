@@ -1,5 +1,3 @@
-##### 3.1 Linear Model ####
-
 #' calculation of stability using linear prediction model.
 #'
 #' This function will take the diversity matrix and the environmental distance
@@ -15,8 +13,8 @@
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
-#' varespec <- data(varespec)
-#' varechem <- data(varechem)
+#' data(varespec)
+#' data(varechem)
 #' example.comdist <- betaDiv(varespec)
 #' example.envdist <- dist(
 #'   BBmisc::normalize(

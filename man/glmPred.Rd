@@ -17,14 +17,16 @@ glmPred(comdist, envmeta, sitenames = NULL)
 a column vector of predicted stability values for each site
 }
 \description{
-This function will take the diversity matrix and the environmental distance
-matrix as input, and calculate the stability of each site using linear model.
+This function will take the dissimilarity matrix and the environmental
+matrix as input, and calculate the stability of each site using a generalized
+linear model (gLM), where the contributions are constrained as non-negative
+\code{lower.limits=0} to ensure the explanability of each coefficient.
 The stability is calculated by comparing the predicted distance (based on the
 linear model) and the mean measured distance (based on betaDiv function).
 }
 \examples{
-varespec <- data(varespec)
-varechem <- data(varechem)
+data(varespec)
+data(varechem)
 example.comdist <- betaDiv(varespec)
 example.stability_GLM <- glmPred(example.comdist, varechem)
 

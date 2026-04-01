@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' library(vegan)
-#' varespec <- data(varespec)
+#'  data(varespec)
 #' View(head(varespec))
 #' example.comdist <- betaDiv(varespec)
 #'

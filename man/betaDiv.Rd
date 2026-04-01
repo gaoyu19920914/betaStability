@@ -30,7 +30,7 @@ By default, the method is "bray" (Bray-Curtis dissimilarity)
 }
 \examples{
 library(vegan)
-varespec <- data(varespec)
+ data(varespec)
 View(head(varespec))
 example.comdist <- betaDiv(varespec)
 
