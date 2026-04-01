@@ -2,6 +2,7 @@
 #'
 #' This is the first step for all calculations. Beta diversity will be
 #' calculated using the vegan::vegdist function.
+#' By default, the method is "bray" (Bray-Curtis dissimilarity)
 #'
 #' @param x The community matrix
 #' @param method The method to calculate beta diversity
@@ -12,10 +13,13 @@
 #' @param ... Other parameters to parse to vegan::vegdist()
 #'
 #' @importFrom vegan vegdist
-#' @returns a dissimilarity matrix
+#' @returns a dissimilarity matrix in a dist object
 #'
 #' @examples
-#' ...
+#' library(vegan)
+#' varespec <- data(varespec)
+#' View(head(varespec))
+#' example.comdist <- betaDiv(varespec)
 #'
 #' @export
 betaDiv <- function(x,
@@ -27,4 +31,3 @@ betaDiv <- function(x,
   result <- vegdist(x, method, binary, diag, upper, ...)
   return(result)
 }
-

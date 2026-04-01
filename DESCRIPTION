@@ -1,10 +1,22 @@
 Package: betaStability
-Title: An R package to quantify the "compositional stability" of one community.
+Title: An R package to quantify the "compositional stability" of one community
 Version: 0.0.0.9000
 Authors@R: 
     person("Yu", "Gao", , "gaoyu19920914@gmail.com", role = c("aut", "cre"))
-Description: An R package to quantify the stability of one community based on the beta diversity between communities.
-License: MIT
+Description: An R package to quantify the stability of one community based on 
+    the beta diversity between communities.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
+Imports: 
+    BBmisc,
+    gdm,
+    glmnet,
+    mgcv,
+    stats,
+    usedist,
+    vegan
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
