@@ -22,8 +22,13 @@
 #' @examples
 #' data(varespec)
 #' data(varechem)
-#' example.comdist <- betaDiv(varespec)
+#' example.comdist <- vegdist(varespec)
 #' example.stability_GDM <- gdmPred(example.comdist, varechem)
+#'
+#' example.stability_GDM_geo <- gdmPred(vegdist(BCI, "bray"),
+#'   BCI.env[,c("Precipitation", "Elevation", "EnvHet")],
+#'   X = BCI.env$UTM.EW,
+#'   Y = BCI.env$UTM.NS)
 #'
 #' @export
 gdmPred <- function(comdist,
@@ -59,7 +64,7 @@ gdmPred <- function(comdist,
   gdmDissim <- data.frame(site = siteids,
                           as.matrix(comdist),
                           stringsAsFactors = FALSE)
-  gdm_data <- formatsitepair(
+  gdm_data <- gdm::formatsitepair(
     bioData = gdmDissim,
     bioFormat = 3,
     predData = env_data,

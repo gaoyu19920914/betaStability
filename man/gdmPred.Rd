@@ -40,7 +40,12 @@ distance, and can also include geographic distance as a predictor.
 \examples{
 data(varespec)
 data(varechem)
-example.comdist <- betaDiv(varespec)
+example.comdist <- vegdist(varespec)
 example.stability_GDM <- gdmPred(example.comdist, varechem)
+
+example.stability_GDM_geo <- gdmPred(vegdist(BCI, "bray"),
+  BCI.env[,c("Precipitation", "Elevation", "EnvHet")],
+  X = BCI.env$UTM.EW,
+  Y = BCI.env$UTM.NS)
 
 }

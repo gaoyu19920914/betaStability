@@ -27,7 +27,7 @@ the corresponding comdist).
 \examples{
 data(varespec)
 data(varechem)
-example.comdist <- betaDiv(varespec)
+example.comdist <- vegdist(varespec)
 example.stability_ML <- mlPred(example.comdist, varechem)
 
 }

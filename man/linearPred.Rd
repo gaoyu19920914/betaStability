@@ -20,12 +20,12 @@ a column vector of predicted stability values for each site
 This function will take the diversity matrix and the environmental distance
 matrix as input, and calculate the stability of each site using linear model.
 The stability is calculated by comparing the predicted distance (based on the
-linear model) and the mean measured distance (based on betaDiv function).
+linear model) and the mean measured distance (based on vegdist function).
 }
 \examples{
 data(varespec)
 data(varechem)
-example.comdist <- betaDiv(varespec)
+example.comdist <- vegdist(varespec)
 example.envdist <- dist(
   BBmisc::normalize(
     varechem,

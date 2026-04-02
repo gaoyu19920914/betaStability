@@ -26,7 +26,7 @@ model to improve the prediction performance.
 \examples{
 data(varespec)
 data(varechem)
-example.comdist <- betaDiv(varespec)
+example.comdist <- vegdist(varespec)
 example.stability_XGB <- xgboostPred(example.comdist, varechem)
 
 }

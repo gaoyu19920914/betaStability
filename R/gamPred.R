@@ -30,7 +30,7 @@ gamPred <- function(comtable,
                     sitenames=NULL,
                     GAM.dist.method = "manhattan") {
   if(is.null(comdist)) {
-    comdist <- betaDiv(comtable)
+    comdist <- vegdist(comtable)
   }
   if (is.null(sitenames)){
     if(identical(labels(comdist), rownames(envmeta))){

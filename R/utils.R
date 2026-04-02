@@ -53,3 +53,17 @@ pred2matrix <- function(pred, site_ids) {
   }
   return(dist_matrix)
 }
+
+# function: clean dataframe (remove same values and convert strings to integers)
+df_prepare <- function(df) {
+  # Remove columns where all elements are the same
+  df <- df[, sapply(df, function(x) length(unique(x)) > 1)]
+
+  # Convert columns to integer if they contain different types of strings
+  for (col in names(df)) {
+    if (is.character(df[[col]]) && length(unique(df[[col]])) > 1) {
+      df[[col]] <- as.integer(as.factor(df[[col]]))
+    }
+  }
+  return(df)
+}
