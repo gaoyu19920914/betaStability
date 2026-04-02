@@ -27,11 +27,13 @@ data(varespec)
 data(varechem)
 example.comdist <- vegdist(varespec)
 example.envdist <- dist(
-  BBmisc::normalize(
-    varechem,
-    method = "range",
-    margin = 2),
-  method = "euclidean")
+    BBmisc::normalize(
+        varechem,
+        method = "range",
+        margin = 2
+    ),
+    method = "euclidean"
+)
 example.stability_LM <- linearPred(example.comdist, example.envdist)
 
 }

@@ -2,14 +2,12 @@
 get_nth_row <- function(df, n) {
     # Check if input is a data frame
     if (!is.data.frame(df)) {
-        message("Error: 'df' must be a data frame.")
-        return(NULL)
+        stop("Error: 'df' must be a data frame.")
     }
 
     # Check if n is numeric and integer-like
     if (!is.numeric(n) || length(n) != 1 || n != as.integer(n)) {
-        message("Error: 'n' must be a single integer.")
-        return(NULL)
+        stop("Error: 'n' must be a single integer.")
     }
 
     # Convert to integer in case it's numeric but whole number
@@ -17,14 +15,13 @@ get_nth_row <- function(df, n) {
 
     # Check bounds
     if (n < 1 || n > nrow(df)) {
-        message(
+        stop(
             "Error: Row number ",
             n,
             " is out of bounds. Data frame has ",
             nrow(df),
             " rows."
         )
-        return(NULL)
     }
 
     # Return the n-th row as a data frame
@@ -45,8 +42,7 @@ get_deltaenv_rows <- function(x, y, env) {
 pred2matrix <- function(pred, site_ids) {
     n_sites <- length(site_ids)
     if (n_sites * (n_sites - 1) / 2 != length(pred)) {
-        message("The dimensions of variables are not matched!")
-        return(NULL)
+        stop("The dimensions of variables are not matched!")
     }
 
     # Create an empty distance matrix
@@ -56,10 +52,7 @@ pred2matrix <- function(pred, site_ids) {
     n <- 1
     for (i in seq_len(n_sites - 1)) {
         for (j in (i + 1):n_sites) {
-            if (n > length(pred)) {
-                message("length of pred out of bourder")
-                return(NULL)
-            }
+            if (n > length(pred)) stop("length of pred out of bourder")
             dist_matrix[i, j] <- pred[n]
             dist_matrix[j, i] <- pred[n]
             n <- n + 1

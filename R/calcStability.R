@@ -22,16 +22,13 @@
 #' @export
 calcStability <- function(predicted.dist, measured.dist) {
     if (!is.numeric(predicted.dist) || !is.numeric(measured.dist)) {
-        message("Error: predicted.dist and measured.dist should be numeric.")
-        return(NA)
+        stop("Error: predicted.dist and measured.dist should be numeric.")
     }
     if (predicted.dist < 0 || predicted.dist > 1) {
-        message("Error: predicted.dist should be in range [0, 1]")
-        return(NA)
+        stop("Error: predicted.dist should be in range [0, 1]")
     }
     if (measured.dist < 0 || measured.dist > 1) {
-        message("Error: measured.dist should be in range [0, 1]")
-        return(NA)
+        stop("Error: measured.dist should be in range [0, 1]")
     }
     if (measured.dist > predicted.dist) {
         return(-(measured.dist - predicted.dist) / (1 - predicted.dist))

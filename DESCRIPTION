@@ -23,9 +23,11 @@ Imports:
     glmnet,
     mgcv,
     randomForest,
+    reshape2,
     stats,
     usedist,
-    vegan
+    vegan,
+    xgboost
 Suggests: 
     testthat (>= 3.0.0)
 biocViews:

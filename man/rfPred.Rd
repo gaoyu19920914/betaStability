@@ -4,7 +4,7 @@
 \alias{rfPred}
 \title{calculation of stability using a random forest model.}
 \usage{
-rfPred(comdist, envmeta, sitenames = NULL, seed = 42)
+rfPred(comdist, envmeta, sitenames = NULL, seed = NULL)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}

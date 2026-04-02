@@ -44,8 +44,9 @@ example.comdist <- vegdist(varespec)
 example.stability_GDM <- gdmPred(example.comdist, varechem)
 
 example.stability_GDM_geo <- gdmPred(vegdist(BCI, "bray"),
-  BCI.env[,c("Precipitation", "Elevation", "EnvHet")],
-  X = BCI.env$UTM.EW,
-  Y = BCI.env$UTM.NS)
+    BCI.env[, c("Precipitation", "Elevation", "EnvHet")],
+    X = BCI.env$UTM.EW,
+    Y = BCI.env$UTM.NS
+)
 
 }

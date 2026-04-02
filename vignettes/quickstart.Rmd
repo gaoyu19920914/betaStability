@@ -28,6 +28,11 @@ First, install the package from GitHub:
 # Install from GitHub
 # install.packages("devtools")
 # devtools::install_github("gaoyu19920914/betaStability")
+
+# OR install from BioConductor (in the future when it's available)
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("betaStability")
 ```
 
 ## Loading Required Packages

@@ -16,6 +16,7 @@ betaStability(
   geo_enabled = TRUE,
   GAM.dist.method = "manhattan",
   vegdist.method = "bray",
+  xgboost.params = NULL,
   seed = 42
 )
 }
@@ -42,18 +43,27 @@ Default is "linearPred".}
 
 \item{Y}{The Y coordinates of the sites for gdmPred (optional, default: NULL)}
 
-\item{geo_enabled}{Whether to include geographic info for gdmPred (default: TRUE)}
+\item{geo_enabled}{Whether to include geographic info for gdmPred
+(default: TRUE)}
 
-\item{GAM.dist.method}{The method for calculating dist for gamPred (default: "manhattan")}
+\item{GAM.dist.method}{The method for calculating dist for gamPred
+(default: "manhattan")}
 
-\item{vegdist.method}{The method for calculating comdist from comtable (default: "bray")}
+\item{vegdist.method}{The method for calculating comdist from comtable
+(default: "bray")}
 
-\item{seed}{The random seed for reproducibility of rfPred and xgboostPred (default: 42)}
+\item{xgboost.params}{A list of parameters for the xgboost model
+(default: NULL). If NULL, default parameters will be used.}
+
+\item{seed}{The random seed for reproducibility of rfPred and xgboostPred
+(default: 42)}
 }
 \value{
-If method length is 1, returns a column vector of predicted stability values.
-If method length > 1, returns a data frame with each column representing results
-from each selected method.
+If method = "all", returns a data frame with 7 columns, each
+representing results from each selected method. If method length is 1,
+returns a column vector of predicted stability values. If method length > 1,
+returns a data frame with each column representing results from each
+selected method.
 }
 \description{
 This function integrates various prediction methods (linear, multiple linear,
@@ -66,13 +76,17 @@ data(varespec)
 data(varechem)
 
 # Single method (linearPred)
-result_linear <- betaStability(comtable = varespec,
-                               envmeta = varechem,
-                               method = "linearPred")
+result_linear <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = "linearPred"
+)
 
 # Multiple methods
-results_multi <- betaStability(comtable = varespec,
-                               envmeta = varechem,
-                               method = c("linearPred", "mlPred"))
+results_multi <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = c("linearPred", "mlPred")
+)
 
 }

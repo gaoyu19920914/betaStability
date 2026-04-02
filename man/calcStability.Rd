@@ -22,7 +22,8 @@ greater than the predicted distance, the stability is negative, and if the
 measured distance is less than the predicted distance, the stability is
 positive. The stability value is normalized to be between -1 and 1, where -1
 indicates the least stable (measured distance is much greater than predicted)
-and 1 indicates the most stable (measured distance is much less than predicted).
+and 1 indicates the most stable (measured distance is much less than
+predicted).
 }
 \examples{
 calcStability(predicted.dist = 0.3, measured.dist = 0.5)

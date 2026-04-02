@@ -4,7 +4,7 @@
 \alias{xgboostPred}
 \title{calculation of stability using a xgboost model.}
 \usage{
-xgboostPred(comdist, envmeta, sitenames = NULL, seed = 42)
+xgboostPred(comdist, envmeta, sitenames = NULL, seed = NULL, params = NULL)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -14,6 +14,9 @@ xgboostPred(comdist, envmeta, sitenames = NULL, seed = 42)
 \item{sitenames}{The names of the site}
 
 \item{seed}{The random seed for reproducibility of the xgboost model}
+
+\item{params}{A list of parameters for the xgboost model.
+If NULL, default parameters will be used.}
 }
 \value{
 a column vector of predicted stability values for each site

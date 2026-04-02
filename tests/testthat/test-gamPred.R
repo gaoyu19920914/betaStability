@@ -3,7 +3,7 @@ library(betaStability)
 library(vegan)
 data(varechem)
 data(varespec)
-library(mgcv)
+library(mgcv, quietly = TRUE)
 
 test_that("generalized additive model prediction no error", {
     expect_no_error(

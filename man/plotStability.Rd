@@ -7,20 +7,25 @@
 plotStability(stability_result, sitenames = NULL)
 }
 \arguments{
-\item{stability_result}{The output from betaStability() function.}
+\item{stability_result}{The output from \code{betaStability()} function.}
 
-\item{sitenames}{Optional vector of site names. If not provided, uses rownames from stability_result.}
+\item{sitenames}{Optional vector of site names. If not provided, uses
+rownames from stability_result.}
 }
 \value{
 A ggplot2 plot object.
 }
 \description{
-This function takes the output of betaStability() and creates a point plot using ggplot2.
+This function takes the output of \code{betaStability()} and creates a point plot
+using ggplot2.
 }
 \examples{
 data(varespec)
 data(varechem)
-results <- betaStability(comtable = varespec, envmeta = varechem, method = c("linearPred", "mlPred"))
+results <- betaStability(
+    comtable = varespec,
+    envmeta = varechem, method = c("linearPred", "mlPred")
+)
 plotStability(results)
 
 }
