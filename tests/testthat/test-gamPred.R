@@ -6,8 +6,10 @@ data(varespec)
 library(mgcv)
 
 test_that("generalized additive model prediction no error", {
-  expect_no_error(
-    gamPred(varespec,
-            varechem)
-  )
+    expect_no_error(
+        gamPred(
+            varespec,
+            varechem
+        )
+    )
 })

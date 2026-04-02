@@ -26,69 +26,80 @@
 #' example.stability_GDM <- gdmPred(example.comdist, varechem)
 #'
 #' example.stability_GDM_geo <- gdmPred(vegdist(BCI, "bray"),
-#'   BCI.env[,c("Precipitation", "Elevation", "EnvHet")],
-#'   X = BCI.env$UTM.EW,
-#'   Y = BCI.env$UTM.NS)
+#'     BCI.env[, c("Precipitation", "Elevation", "EnvHet")],
+#'     X = BCI.env$UTM.EW,
+#'     Y = BCI.env$UTM.NS
+#' )
 #'
 #' @export
-gdmPred <- function(comdist,
-                    envmeta,
-                    sitenames=NULL,
-                    X=NULL,
-                    Y=NULL,
-                    geo_enabled = TRUE){
-  if (is.null(sitenames)){
-    if(identical(labels(comdist), rownames(envmeta))){
-      sitenames <- labels(comdist)
-    } else {
-      stop("The labels of comdist and rownames of envmeta are not identical!")
+gdmPred <- function(
+    comdist,
+    envmeta,
+    sitenames = NULL,
+    X = NULL,
+    Y = NULL,
+    geo_enabled = TRUE
+) {
+    if (is.null(sitenames)) {
+        if (identical(labels(comdist), rownames(envmeta))) {
+            sitenames <- labels(comdist)
+        } else {
+            stop("The labels(comdist) and rownames(envmeta) are not identical!")
+        }
     }
-  }
-  siteids <- if (identical(as.character(as.numeric(sitenames)),
-                           sitenames)){
-    as.numeric(sitenames)
-  } else {
-    1:length(sitenames)
-  }
+    siteids <- if (identical(
+        as.character(as.numeric(sitenames)),
+        sitenames
+    )) {
+        as.numeric(sitenames)
+    } else {
+        seq_len(length(sitenames))
+    }
 
-  if(is.null(X) || is.null(Y)){
-    X <- rep(0, length(sitenames))
-    Y <- rep(0, length(sitenames))
-    geo_enabled <- FALSE
-  }
+    if (is.null(X) || is.null(Y)) {
+        X <- rep(0, length(sitenames))
+        Y <- rep(0, length(sitenames))
+        geo_enabled <- FALSE
+    }
 
-  env_data <- cbind(site = siteids,
-                    X = X,
-                    Y = Y,
-                    envmeta)
-  gdmDissim <- data.frame(site = siteids,
-                          as.matrix(comdist),
-                          stringsAsFactors = FALSE)
-  gdm_data <- gdm::formatsitepair(
-    bioData = gdmDissim,
-    bioFormat = 3,
-    predData = env_data,
-    siteColumn = "site",
-    XColumn = "X",
-    YColumn = "Y"
-  )
-  gdm_model <- gdm(gdm_data, geo = geo_enabled)
-  gdm_pred <- predict(gdm_model, data = gdm_data)
+    env_data <- cbind(
+        site = siteids,
+        X = X,
+        Y = Y,
+        envmeta
+    )
+    gdmDissim <- data.frame(
+        site = siteids,
+        as.matrix(comdist),
+        stringsAsFactors = FALSE
+    )
+    gdm_data <- gdm::formatsitepair(
+        bioData = gdmDissim,
+        bioFormat = 3,
+        predData = env_data,
+        siteColumn = "site",
+        XColumn = "X",
+        YColumn = "Y"
+    )
+    gdm_model <- gdm(gdm_data, geo = geo_enabled)
+    gdm_pred <- predict(gdm_model, data = gdm_data)
 
-  gdm_matrix <- pred2matrix(pred = gdm_pred,
-                            site_ids = sitenames)
+    gdm_matrix <- pred2matrix(
+        pred = gdm_pred,
+        site_ids = sitenames
+    )
 
-  result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol =1))
-  for (n.site in 1:length(sitenames)) {
-    sitename <- sitenames[n.site]
-    predicted.dist <- mean(gdm_matrix[sitename,])
-    othersites <- setdiff(sitenames, sitename)
-    selected.dist <- dist_get(comdist, sitename, othersites)
-    mean.measured.dist <- mean(selected.dist)
-    result[n.site, 1] <- calcStability(predicted.dist, mean.measured.dist)
-  }
+    result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol = 1))
+    for (n.site in seq_len(length(sitenames))) {
+        sitename <- sitenames[n.site]
+        predicted.dist <- mean(gdm_matrix[sitename, ])
+        othersites <- setdiff(sitenames, sitename)
+        selected.dist <- dist_get(comdist, sitename, othersites)
+        mean.measured.dist <- mean(selected.dist)
+        result[n.site, 1] <- calcStability(predicted.dist, mean.measured.dist)
+    }
 
-  colnames(result)[1] <- "stability_GDM"
-  rownames(result) <- sitenames
-  return(result)
+    colnames(result)[1] <- "stability_GDM"
+    rownames(result) <- sitenames
+    return(result)
 }
