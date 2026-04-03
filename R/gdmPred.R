@@ -1,4 +1,3 @@
-#   ##### 3.4 gdm nonlinear prediction ####
 #' calculation of stability using a generalized dissimilarity model.
 #'
 #' This function will take the community dissimilarity matrix and the
@@ -20,8 +19,11 @@
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
+#' data(BCI)
+#' data(BCI.env)
 #' example.comdist <- vegdist(varespec)
 #' example.stability_GDM <- gdmPred(example.comdist, varechem)
 #'

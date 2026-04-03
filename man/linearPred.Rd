@@ -23,6 +23,8 @@ The stability is calculated by comparing the predicted distance (based on the
 linear model) and the mean measured distance (based on vegdist function).
 }
 \examples{
+library(vegan)
+library(stats)
 data(varespec)
 data(varechem)
 example.comdist <- vegdist(varespec)

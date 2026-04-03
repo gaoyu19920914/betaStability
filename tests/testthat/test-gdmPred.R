@@ -1,5 +1,3 @@
-library(testthat)
-library(betaStability)
 library(vegan)
 data(varechem)
 data(varespec)

@@ -13,18 +13,23 @@
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
+#' @importFrom stats as.formula lm setNames predict
+#'
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- vegdist(varespec)
 #' example.stability_ML <- mlPred(example.comdist, varechem)
 #'
 #' @export
-mlPred <- function(comdist,
+mlPred <- function(
+    comdist,
     envmeta,
-    sitenames = NULL) {
+    sitenames = NULL
+) {
     result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol = 1))
     if (is.null(sitenames)) {
         if (identical(labels(comdist), rownames(envmeta))) {

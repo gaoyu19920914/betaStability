@@ -14,9 +14,11 @@
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
 #' @importFrom glmnet cv.glmnet
+#' @importFrom stats setNames predict coef
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- vegdist(varespec)
@@ -93,7 +95,7 @@ glmPred <- function(
             lower.limits = 0
         )
         best_lambda <- this.cv.glmnet$lambda.min
-        coef(this.cv.glmnet, s = best_lambda)
+        # coef(this.cv.glmnet, s = best_lambda)
         beta_pred <- predict(this.cv.glmnet,
             newx = as.matrix(subset(validatingset,
                 select = names(deltaenvnorm)

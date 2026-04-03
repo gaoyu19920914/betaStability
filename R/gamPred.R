@@ -1,4 +1,3 @@
-#   ##### 3.5 GAMs (mgcv) prediction ####
 #' calculation of stability using an generalized additive model.
 #'
 #' This function will take the community count table and the environmental
@@ -16,9 +15,11 @@
 #'
 #' @importFrom usedist dist_get
 #' @importFrom mgcv gam
+#' @importFrom stats as.formula predict
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' example.stability_GAM <- gamPred(varespec, varechem)

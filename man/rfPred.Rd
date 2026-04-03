@@ -24,6 +24,7 @@ matrix as input, and calculate the stability of each site using a random
 forest model to improve the prediction performance.
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
 example.comdist <- vegdist(varespec)

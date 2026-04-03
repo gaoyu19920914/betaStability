@@ -5,11 +5,13 @@
 #'
 #' @param stability_result The output from `betaStability()` function.
 #' @param sitenames Optional vector of site names. If not provided, uses
-#' rownames from stability_result.
+#' rownames from stability_result. Users shall make sure the provided sitenames
+#' correspond to the rownames of stability_result in the correct order.
 #'
 #' @returns A ggplot2 plot object.
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' results <- betaStability(
@@ -27,20 +29,20 @@ plotStability <- function(stability_result, sitenames = NULL) {
     # reshape to keep the method information
     df <- reshape2::melt(stability_result, id.vars = "site")
     colnames(df) <- c("site", "method", "stability")
+
+    # Overwrite sitenames if provided
     if (!is.null(sitenames)) {
         df$site <- sitenames
     }
-
-    # Ensure site order is preserved
-    df$site <- factor(df$site, levels = unique(df$site))
 
     # Create plot
     p <- ggplot(df, aes(x = site, y = stability, color = method)) +
         geom_point() +
         geom_hline(yintercept = 0, linetype = "dashed", color = "gray") +
         ylim(-1, 1) +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8)) +
         labs(x = "Site", y = "Stability", color = "Method") +
+        theme(legend.position = "bottom") +
         theme_bw()
 
     return(p)

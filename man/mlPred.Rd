@@ -25,6 +25,7 @@ between the site and other sites (based on the difference of envmeta and
 the corresponding comdist).
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
 example.comdist <- vegdist(varespec)

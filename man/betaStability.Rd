@@ -72,6 +72,7 @@ dissimilarity model, random forest, and xgboost) to calculate the stability
 of each site.
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
 

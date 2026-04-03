@@ -14,20 +14,25 @@
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
 #' @importFrom xgboost xgb.DMatrix xgb.train
+#' @importFrom stats setNames predict
+#'
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- vegdist(varespec)
 #' example.stability_XGB <- xgboostPred(example.comdist, varechem)
 #'
 #' @export
-xgboostPred <- function(comdist,
+xgboostPred <- function(
+    comdist,
     envmeta,
     sitenames = NULL,
     seed = NULL,
-    params = NULL) {
+    params = NULL
+) {
     if (!is.null(seed)) set.seed(seed)
     if (is.null(params)) {
         params <- list(
@@ -52,7 +57,8 @@ xgboostPred <- function(comdist,
 
     # prepare df.ij.deltaenv.beta dataframe between pairs of sites.
     df.ij.deltaenv.beta <- data.frame(
-        matrix(ncol = 2 + ncol(envmeta) + 1, nrow = 0))
+        matrix(ncol = 2 + ncol(envmeta) + 1, nrow = 0)
+    )
     colnames(df.ij.deltaenv.beta) <- c("i", "j", colnames(envmeta), "beta")
     for (i in seq_len(nrow(envmeta) - 1)) {
         for (j in (i + 1):nrow(envmeta)) {

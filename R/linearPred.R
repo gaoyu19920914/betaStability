@@ -10,9 +10,12 @@
 #' @param sitenames The names of the site
 #'
 #' @importFrom usedist dist_subset dist_get
+#' @importFrom stats predict lm
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
+#' library(stats)
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- vegdist(varespec)

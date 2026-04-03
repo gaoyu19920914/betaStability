@@ -10,7 +10,8 @@ plotStability(stability_result, sitenames = NULL)
 \item{stability_result}{The output from \code{betaStability()} function.}
 
 \item{sitenames}{Optional vector of site names. If not provided, uses
-rownames from stability_result.}
+rownames from stability_result. Users shall make sure the provided sitenames
+correspond to the rownames of stability_result in the correct order.}
 }
 \value{
 A ggplot2 plot object.
@@ -20,6 +21,7 @@ This function takes the output of \code{betaStability()} and creates a point plo
 using ggplot2.
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
 results <- betaStability(

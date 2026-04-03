@@ -1,0 +1,72 @@
+---
+title: "BetaStability with rioja datasets"
+author: "Yu Gao(gaoyu19920914@gmail.com)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{BetaStability with rioja datasets}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+# BetaStability with rioja datasets
+
+This vignette demonstrates the BetaStability package using `linearPred` with 
+the Ponds dataset from the rioja package. 
+
+## Installation
+
+First, install the package from GitHub:
+
+```{r installation, eval = FALSE}
+# Install from GitHub
+# install.packages("devtools")
+# devtools::install_github("gaoyu19920914/betaStability")
+
+# OR install from BioConductor (in the future when it's available)
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("betaStability")
+```
+
+## Loading Required Packages
+
+Load the BetaStability package and the rioja package for test data:
+
+```{r load-packages}
+library(betaStability)
+library(vegan)
+library(rioja)
+library(ggplot2)
+data("Ponds")
+```
+
+### rioja dataset with linearPred
+
+```{r data preparation}
+comtable <- Ponds$spec
+envmeta <- Ponds$env[, 6:19]
+
+# Calculate stability with linearPred
+stability_rioja_linear <- betaStability(
+    comtable = comtable,
+    envmeta = envmeta,
+    method = "linearPred"
+)
+
+# Inspect the result
+head(stability_rioja_linear)
+p_rioja <- plotStability(stability_rioja_linear, sitenames = Ponds$env$Name)
+p_rioja
+```
+
+```{r}
+print(sessionInfo())
+```

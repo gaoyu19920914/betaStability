@@ -4,21 +4,22 @@ author: "Yu Gao(gaoyu19920914@gmail.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{BetaStability Quick Start Guide}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{BetaStability Quick Start Guide}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+    collapse = TRUE,
+    comment = "#>"
 )
 ```
 
 # BetaStability Quick Start Guide
 
-This vignette demonstrates the capabilities of the BetaStability package using the `varespec` and `varechem` datasets from the vegan package.
+This vignette demonstrates the capabilities of the BetaStability package using 
+the `varespec` and `varechem` datasets from the vegan package.
 
 ## Installation
 
@@ -47,7 +48,8 @@ library(ggplot2)
 
 ## Loading Test Data
 
-Load the `varespec` (community data) and `varechem` (environmental metadata) datasets from the vegan package:
+Load the `varespec` (community data) and `varechem` (environmental metadata) 
+datasets from the vegan package:
 
 ```{r load-data}
 data(varespec)
@@ -68,9 +70,11 @@ Calculate stability using a single prediction method (`linearPred`):
 
 ```{r single-method}
 # Calculate stability with linearPred
-result_linear <- betaStability(comtable = varespec, 
-                               envmeta = varechem, 
-                               method = "linearPred")
+result_linear <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = "linearPred"
+)
 
 # Inspect the result
 head(result_linear)
@@ -83,9 +87,11 @@ Calculate stability using multiple prediction methods:
 
 ```{r multiple-methods}
 # Calculate stability with multiple methods
-results_multi <- betaStability(comtable = varespec, 
-                              envmeta = varechem, 
-                              method = c("linearPred", "mlPred", "glmPred"))
+results_multi <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = c("linearPred", "mlPred", "glmPred")
+)
 
 # Inspect the result
 head(results_multi)
@@ -98,9 +104,11 @@ Calculate stability using all available prediction methods:
 
 ```{r all-methods}
 # Calculate stability with all methods
-results_all <- betaStability(comtable = varespec, 
-                            envmeta = varechem, 
-                            method = "all")
+results_all <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = "all"
+)
 
 # Inspect the result
 head(results_all)
@@ -145,11 +153,25 @@ p4
 
 ## Conclusion
 
-The BetaStability package provides a comprehensive framework for calculating and visualizing site stability using various prediction methods. Key features include:
+The BetaStability package provides a comprehensive framework for calculating 
+and visualizing site stability using various prediction methods. Key features 
+include:
 
-1. **Multiple prediction methods**: Choose from linear, multiple linear model, generalized linear model, generalized additive model, generalized dissimilarity model, random forest, and xgboost models.
-2. **Flexible input options**: Use precomputed distance matrices or let the package compute them automatically.
-3. **Easy visualization**: The `plotStability` function creates informative plots of stability results.
-4. **Convenient "all" method**: Run all prediction methods with a single parameter setting and receive a summary of results.
+1. **Multiple prediction methods**: Choose from linear, multiple linear model, 
+generalized linear model, generalized additive model, generalized dissimilarity 
+model, random forest, and xgboost models.
+2. **Flexible input options**: Use precomputed distance matrices or let the 
+package compute them automatically.
+3. **Easy visualization**: The `plotStability` function creates informative 
+plots of stability results.
+4. **Convenient "all" method**: Run all prediction methods with a single 
+parameter setting and receive a summary of results.
 
-This package is designed to help researchers and ecologists assess site stability based on the beta stability of communities, providing valuable insights for ecosystem management.
+This package is designed to help researchers and ecologists assess site 
+stability based on the beta stability of communities, providing valuable 
+insights for ecosystem management.
+
+```{r}
+print(sessionInfo())
+```
+

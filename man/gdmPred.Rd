@@ -38,8 +38,11 @@ the nonlinear relationship between community dissimilarity and environmental
 distance, and can also include geographic distance as a predictor.
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
+data(BCI)
+data(BCI.env)
 example.comdist <- vegdist(varespec)
 example.stability_GDM <- gdmPred(example.comdist, varechem)
 

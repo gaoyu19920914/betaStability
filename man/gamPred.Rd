@@ -35,6 +35,7 @@ dissimilarity based on Bray-Curtis distance and use it. In GAM, the
 prediction results are expected to perform better than the linear models.
 }
 \examples{
+library(vegan)
 data(varespec)
 data(varechem)
 example.stability_GAM <- gamPred(varespec, varechem)

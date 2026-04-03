@@ -12,19 +12,23 @@
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
 #' @importFrom randomForest randomForest
+#' @importFrom stats na.omit setNames predict
 #' @returns a column vector of predicted stability values for each site
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #' example.comdist <- vegdist(varespec)
 #' example.stability_RF <- rfPred(example.comdist, varechem)
 #'
 #' @export
-rfPred <- function(comdist,
-    envmeta,
-    sitenames = NULL,
-    seed = NULL) {
+rfPred <- function(
+      comdist,
+      envmeta,
+      sitenames = NULL,
+      seed = NULL
+) {
     if (!is.null(seed)) {
         set.seed(seed)
     }
@@ -39,7 +43,8 @@ rfPred <- function(comdist,
 
     # prepare df.ij.deltaenv.beta dataframe between pairs of sites.
     df.ij.deltaenv.beta <- data.frame(
-        matrix(ncol = 2 + ncol(envmeta) + 1, nrow = 0))
+        matrix(ncol = 2 + ncol(envmeta) + 1, nrow = 0)
+    )
     colnames(df.ij.deltaenv.beta) <- c("i", "j", colnames(envmeta), "beta")
     for (i in seq_len(nrow(envmeta) - 1)) {
         for (j in (i + 1):nrow(envmeta)) {

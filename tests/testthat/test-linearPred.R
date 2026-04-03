@@ -1,3 +1,5 @@
+library(vegan)
+library(stats)
 data(varechem)
 data(varespec)
 

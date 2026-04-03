@@ -1,0 +1,173 @@
+---
+title: "BetaStability with vegan datasets"
+author: "Yu Gao(gaoyu19920914@gmail.com)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{BetaStability with vegan datasets}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+# BetaStability with vegan datasets
+
+This vignette demonstrates the BetaStability package using `linearPred` with
+multiple datasets (BCI, dune, and mite) from the vegan package. 
+
+## Installation
+
+First, install the package from GitHub:
+
+```{r installation, eval = FALSE}
+# Install from GitHub
+# install.packages("devtools")
+# devtools::install_github("gaoyu19920914/betaStability")
+
+# OR install from BioConductor (in the future when it's available)
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("betaStability")
+```
+
+## Loading Required Packages
+
+Load the BetaStability package and the vegan package for test data:
+
+```{r load-packages}
+library(betaStability)
+library(vegan)
+library(ggplot2)
+data("BCI", "BCI.env", "mite", "mite.env", "dune", "dune.env")
+```
+
+## Demonstrating General Applicability with linearPred
+
+
+```{r dataframe_preparing function}
+df_prepare <- function(df) {
+    # Remove columns where all elements are the same
+    df <- df[, vapply(df, function(x) length(unique(x)) > 1, logical(1))]
+
+    # Convert columns to integer if they contain different types of strings
+    for (col in names(df)) {
+        if (is.character(df[[col]]) && length(unique(df[[col]])) > 1) {
+            df[[col]] <- as.integer(as.factor(df[[col]]))
+        }
+    }
+    return(df)
+}
+```
+### BCI Dataset with linearPred
+
+Calculate stability for BCI dataset using `linearPred`:
+
+```{r linear-bci}
+# Calculate stability with linearPred
+stability_BCI_linear <- betaStability(
+    comtable = BCI,
+    envmeta = BCI.env[, c("Precipitation", "Elevation", "EnvHet")],
+    method = "linearPred"
+)
+
+# Inspect the result
+head(stability_BCI_linear)
+length(stability_BCI_linear)
+```
+
+### Dune Dataset with linearPred
+
+Load the `dune` (community data) and `dune.env` (environmental metadata) 
+datasets from the vegan package, then calculate stability:
+
+```{r linear-dune}
+data(dune)
+data(dune.env)
+
+# Inspect the data
+head(dune)
+head(dune.env)
+
+# Dimensions of the datasets
+cat("Dimensions of dune:", dim(dune), "\n")
+cat("Dimensions of dune.env:", dim(dune.env), "\n")
+
+# Process environmental data using df_prepare
+dune.env_processed <- df_prepare(dune.env)
+
+# Calculate stability with linearPred
+stability_dune_linear <- betaStability(
+    comtable = dune,
+    envmeta = dune.env_processed,
+    method = "linearPred"
+)
+
+# Inspect the result
+head(stability_dune_linear)
+length(stability_dune_linear)
+```
+
+### Mite Dataset with linearPred
+
+Load the `mite` (community data) and `mite.env` (environmental metadata) 
+datasets from the vegan package, then calculate stability:
+
+```{r linear-mite}
+data(mite)
+data(mite.env)
+
+# Inspect the data
+head(mite)
+head(mite.env)
+
+# Dimensions of the datasets
+cat("Dimensions of mite:", dim(mite), "\n")
+cat("Dimensions of mite.env:", dim(mite.env), "\n")
+
+# Process environmental data using df_prepare
+mite.env_processed <- df_prepare(mite.env)
+
+# Calculate stability with linearPred
+stability_mite_linear <- betaStability(
+    comtable = mite,
+    envmeta = mite.env_processed,
+    method = "linearPred"
+)
+
+# Inspect the result
+head(stability_mite_linear)
+length(stability_mite_linear)
+```
+
+### Visualizing Results
+
+Visualize the stability results for all datasets using `linearPred`:
+
+```{r plot-all-linear}
+p_mite <- plotStability(stability_mite_linear)
+p_mite
+
+p_dune <- plotStability(stability_dune_linear)
+p_dune
+
+p_BCI <- plotStability(stability_BCI_linear)
+p_BCI
+```
+
+## Summary
+
+**General applicability across different datasets**: 
+Using the simple and fast `linearPred` method, we successfully calculated 
+stability for three different datasets (BCI, dune, and mite) representing 
+different ecological systems. This demonstrates the versatility of the 
+BetaStability package across various types of ecological data.
+
+```{r}
+print(sessionInfo())
+```

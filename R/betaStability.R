@@ -30,6 +30,9 @@
 #' @param xgboost.params A list of parameters for the xgboost model
 #' (default: NULL). If NULL, default parameters will be used.
 #'
+#' @importFrom stats dist
+#' @importFrom vegan vegdist
+#'
 #' @returns If method = "all", returns a data frame with 7 columns, each
 #' representing results from each selected method. If method length is 1,
 #' returns a column vector of predicted stability values. If method length > 1,
@@ -37,6 +40,7 @@
 #' selected method.
 #'
 #' @examples
+#' library(vegan)
 #' data(varespec)
 #' data(varechem)
 #'
@@ -190,3 +194,13 @@ betaStability <- function(comtable = NULL,
         return(combined_result)
     }
 }
+
+#   #### testable data ####
+#   # HSAUR3::birds, gardenflowers, watervoles
+#
+#   #### TODO: predict community then calculate diversity ####
+#   # MicroEcoTools
+#   # specificity
+#   # microbiomeSeq
+
+

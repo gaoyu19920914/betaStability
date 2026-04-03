@@ -1,6 +1,4 @@
-library(testthat)
-
-# Test data setup
+library(vegan)
 data(varespec)
 data(varechem)
 
