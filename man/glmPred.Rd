@@ -20,7 +20,7 @@ a column vector of predicted stability values for each site
 This function will take the dissimilarity matrix and the environmental
 matrix as input, and calculate the stability of each site using a generalized
 linear model (gLM), where the contributions are constrained as non-negative
-\code{lower.limits=0} to ensure the explanability of each coefficient.
+\code{lower.limits=0} to ensure the explainability of each coefficient.
 The stability is calculated by comparing the predicted distance (based on the
 linear model) and the mean measured distance (based on vegdist function).
 }
