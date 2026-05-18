@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 .Rproj
-.csv
-.docx
-.drawio
-.pptx
+*.csv
+*.docx
+*.drawio
+*.pptx
