@@ -144,7 +144,7 @@ You can also customize the site names in the plot:
 
 ```{r custom-sitenames}
 # Create custom site names
-custom_sitenames <- paste("Site", 1:nrow(varespec))
+custom_sitenames <- paste("Site", seq_len(nrow(varespec)))
 
 # Plot with custom site names
 p4 <- plotStability(results_multi, sitenames = custom_sitenames)
