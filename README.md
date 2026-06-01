@@ -1,22 +1,36 @@
+
 # betaStability
-An R package to quantify the "compositional stability" of one community
+Quantify the "Compositional Stability" of Each Community Based on a Single 
+Sampling Event
 
-# description
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/betaStability)]
+(https://CRAN.R-project.org/package=betaStability)
+<!-- badges: end -->
 
-An R package to quantify the stability of one community based on the beta 
-diversity between communities. 
+The goal of betaStability is to quantify the stability of each community based 
+on the beta diversity between communities gathered in a single sampling event 
+rather than a series of continuous sampling activities.
 
-# installation
-You can either download the released version from 
-[Release](https://github.com/gaoyu19920914/betaStability/releases) 
-or install it via the following code:
+## Installation
 
-```R
-if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-devtools::install_github("gaoyu19920914/betaStability")
+You can install the development version of betaStability from 
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("gaoyu19920914/betaStability")
 ```
 
-    
+or download a released version from
+[Release](https://github.com/gaoyu19920914/betaStability/releases) 
+
+
+## Example
+
+Please refer to the vignettes and examples embedded in the package.
+
+
 ## Support
 
 please contact me by [email](mailto:gaoyu19920914@gmail.com) if you have any 

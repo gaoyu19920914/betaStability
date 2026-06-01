@@ -27,7 +27,7 @@ forest model to improve the prediction performance.
 library(vegan)
 data(varespec)
 data(varechem)
-example.comdist <- vegdist(varespec)
-example.stability_RF <- rfPred(example.comdist, varechem)
+example.comdist <- vegdist(varespec[1:10,])
+example.stability_RF <- rfPred(example.comdist, varechem[1:10,])
 
 }

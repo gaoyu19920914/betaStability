@@ -43,9 +43,11 @@ Load the BetaStability package and the rioja package for test data:
 ```{r load-packages}
 library(betaStability)
 library(vegan)
-library(rioja)
 library(ggplot2)
-data("Ponds")
+# Check if rioja is available and install it to load dataset
+if (!requireNamespace("rioja", quietly = TRUE)) install.packages("rioja")
+data("Ponds", package = "rioja")
+
 ```
 
 ### rioja dataset with linearPred

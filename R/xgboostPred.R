@@ -22,8 +22,8 @@
 #' library(vegan)
 #' data(varespec)
 #' data(varechem)
-#' example.comdist <- vegdist(varespec)
-#' example.stability_XGB <- xgboostPred(example.comdist, varechem)
+#' example.comdist <- vegdist(varespec[1:10,])
+#' example.stability_XGB <- xgboostPred(example.comdist, varechem[1:10,])
 #'
 #' @export
 xgboostPred <- function(
