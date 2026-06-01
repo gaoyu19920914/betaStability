@@ -1,7 +1,7 @@
 Package: betaStability
 Title: Quantify the Compositional Stability of Each Community Based on a Single 
     Sampling Event
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person(
         "Yu", 

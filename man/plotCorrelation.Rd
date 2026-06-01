@@ -29,7 +29,7 @@ data(varechem)
 results <- betaStability(
     comtable = varespec,
     envmeta = varechem,
-    method = "all"
+    method = c("linearPred", "mlPred", "glmPred")
 )
 plotCorrelation(results)
 

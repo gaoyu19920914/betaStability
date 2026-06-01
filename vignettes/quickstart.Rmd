@@ -137,6 +137,14 @@ p2
 p3 <- plotStability(results_all)
 p3
 ```
+Visualize the correlations between different stability quantifying methods 
+using the `plotCorrelation` function:
+```{r plot-all}
+# Plot stability correlations between all pairs of methods
+p4 <- plotCorrelation(results_all)
+p4
+```
+
 
 ## Customizing Site Names
 
@@ -147,8 +155,8 @@ You can also customize the site names in the plot:
 custom_sitenames <- paste("Site", seq_len(nrow(varespec)))
 
 # Plot with custom site names
-p4 <- plotStability(results_multi, sitenames = custom_sitenames)
-p4
+p5 <- plotStability(results_multi, sitenames = custom_sitenames)
+p5
 ```
 
 ## Conclusion
