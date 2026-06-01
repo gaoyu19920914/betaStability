@@ -30,7 +30,7 @@ plotCorrelation <- function(data, method = "spearman") {
     stop("data must be a dataframe with at least 2 columns")
   }
 
-  numeric_cols <- names(data)[sapply(data, is.numeric)]
+  numeric_cols <- names(data)[vapply(data, is.numeric, FUN.VALUE = logical(1))]
 
   if (length(numeric_cols) < 2) {
     stop("data must contain at least 2 numeric columns")
@@ -55,7 +55,10 @@ plotCorrelation <- function(data, method = "spearman") {
       data.frame(
         xvar = xvar,
         yvar = yvar,
-        label = sprintf("%s = %.2f, p = %.3f", cor_label, cor_test$estimate, cor_test$p.value),
+        label = sprintf("%s = %.2f, p = %.3f",
+                        cor_label,
+                        cor_test$estimate,
+                        cor_test$p.value),
         stringsAsFactors = FALSE
       )
     }))
@@ -67,7 +70,8 @@ plotCorrelation <- function(data, method = "spearman") {
     geom_text(data = cor_results, aes(x = -Inf, y = Inf, label = label),
               hjust = 0, vjust = 1, size = 2.5, inherit.aes = FALSE) +
     facet_grid(rows = vars(yvar), cols = vars(xvar)) +
-    labs(title = paste(toupper(method), "Correlation of Stability Predictions between Methods"),
+    labs(title = paste(toupper(method),
+                       "Correlation of Stability Predictions between Methods"),
          x = NULL,
          y = NULL) +
     theme_minimal() +
