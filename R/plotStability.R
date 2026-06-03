@@ -35,6 +35,9 @@ plotStability <- function(stability_result, sitenames = NULL) {
         df$site <- sitenames
     }
 
+    # Preserve the order of sites as they appear in the data frame
+    df$site <- factor(df$site, levels = unique(df$site))
+
     # Create plot
     p <- ggplot(df, aes(x = site, y = stability, color = method)) +
         geom_point() +
