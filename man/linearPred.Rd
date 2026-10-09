@@ -4,7 +4,7 @@
 \alias{linearPred}
 \title{calculation of stability using linear prediction model.}
 \usage{
-linearPred(comdist, envdist, sitenames = NULL)
+linearPred(comdist, envdist, sitenames = NULL, symmetric = FALSE)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -12,6 +12,8 @@ linearPred(comdist, envdist, sitenames = NULL)
 \item{envdist}{The environmental dissimilarity matrix}
 
 \item{sitenames}{The names of the site}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site

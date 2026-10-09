@@ -8,6 +8,7 @@
 #' @param comdist The community dissimilarity matrix
 #' @param envdist The environmental dissimilarity matrix
 #' @param sitenames The names of the site
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom stats predict lm
@@ -32,7 +33,8 @@
 #' @export
 linearPred <- function(comdist,
     envdist,
-    sitenames = NULL) {
+    sitenames = NULL,
+    symmetric = FALSE) {
     result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol = 1))
 
     if (is.null(sitenames)) {
@@ -61,7 +63,7 @@ linearPred <- function(comdist,
         predicted.dist <- predict(this.linear.model,
             newdata = data.frame(x = mean.envdist)
         )
-        result[n.site, 1] <- calcStability(predicted.dist, mean.dist)
+        result[n.site, 1] <- calcStability(predicted.dist, mean.dist, symmetric)
     }
 
     colnames(result)[1] <- "stability_Linear"

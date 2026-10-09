@@ -12,6 +12,7 @@
 #' @param comdist The community dissimilarity matrix (optional, default: NULL)
 #' @param sitenames The names of the site (optional, default: NULL)
 #' @param GAM.dist.method The method for calculating dist (default: "manhattan")
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_get
 #' @importFrom mgcv gam
@@ -30,7 +31,8 @@ gamPred <- function(
     envmeta,
     comdist = NULL,
     sitenames = NULL,
-    GAM.dist.method = "manhattan"
+    GAM.dist.method = "manhattan",
+    symmetric = FALSE
 ) {
     if (is.null(comdist)) {
         comdist <- vegdist(comtable)
@@ -83,7 +85,9 @@ gamPred <- function(
         othersites <- setdiff(sitenames, sitename)
         selected.dist <- dist_get(comdist, sitename, othersites)
         mean.measured.dist <- mean(selected.dist)
-        result[n.site, 1] <- calcStability(predicted.dist, mean.measured.dist)
+        result[n.site, 1] <- calcStability(predicted.dist,
+                                           mean.measured.dist,
+                                           symmetric)
     }
 
     colnames(result)[1] <- "stability_GAM"

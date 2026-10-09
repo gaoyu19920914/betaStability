@@ -10,7 +10,8 @@ gdmPred(
   sitenames = NULL,
   X = NULL,
   Y = NULL,
-  geo_enabled = TRUE
+  geo_enabled = TRUE,
+  symmetric = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ gdmPred(
 \item{Y}{The Y coordinates of the sites (optional, default: NULL)}
 
 \item{geo_enabled}{Whether to include geographic info  (default: TRUE)}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site

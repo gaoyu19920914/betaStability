@@ -13,3 +13,9 @@ description format fix + third submission to CRAN
 20260601 version 0.0.4
 addition of function plotCorrelation
 format fix + fourth submission to CRAN
+
+20261008 version 0.1.0
+update of function plotStability to support map-making
+update of function calcStability to support symmetric algorithm of betaStability
+update of examples and documents concerning function plotStability
+fifth submission to CRAN

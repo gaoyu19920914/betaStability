@@ -4,7 +4,7 @@
 \alias{rfPred}
 \title{calculation of stability using a random forest model.}
 \usage{
-rfPred(comdist, envmeta, sitenames = NULL, seed = NULL)
+rfPred(comdist, envmeta, sitenames = NULL, seed = NULL, symmetric = FALSE)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -14,6 +14,8 @@ rfPred(comdist, envmeta, sitenames = NULL, seed = NULL)
 \item{sitenames}{The names of the site}
 
 \item{seed}{The random seed for reproducibility of the random forest model}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site

@@ -10,6 +10,7 @@
 #' @param seed The random seed for reproducibility of the xgboost model
 #' @param params A list of parameters for the xgboost model.
 #' If NULL, default parameters will be used.
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
@@ -31,7 +32,8 @@ xgboostPred <- function(
     envmeta,
     sitenames = NULL,
     seed = NULL,
-    params = NULL
+    params = NULL,
+    symmetric = FALSE
 ) {
     if (!is.null(seed)) set.seed(seed)
     if (is.null(params)) {
@@ -130,7 +132,9 @@ xgboostPred <- function(
         othersites <- setdiff(sitenames, sitename)
         selected.dist <- dist_get(comdist, sitename, othersites)
         mean.measured.dist <- mean(selected.dist)
-        result[n.site, 1] <- calcStability(mean(beta_pred), mean.measured.dist)
+        result[n.site, 1] <- calcStability(mean(beta_pred),
+                                           mean.measured.dist,
+                                           symmetric)
     }
     colnames(result)[1] <- "stability_XGB"
     rownames(result) <- sitenames

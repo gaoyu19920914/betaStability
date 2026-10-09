@@ -8,6 +8,7 @@
 #' @param envmeta The environmental metadata table/matrix
 #' @param sitenames The names of the site
 #' @param seed The random seed for reproducibility of the random forest model
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
@@ -27,7 +28,8 @@ rfPred <- function(
       comdist,
       envmeta,
       sitenames = NULL,
-      seed = NULL
+      seed = NULL,
+      symmetric = FALSE
 ) {
     if (!is.null(seed)) {
         set.seed(seed)
@@ -110,7 +112,9 @@ rfPred <- function(
         othersites <- setdiff(sitenames, sitename)
         selected.dist <- dist_get(comdist, sitename, othersites)
         mean.measured.dist <- mean(selected.dist)
-        result[n.site, 1] <- calcStability(mean(beta_pred), mean.measured.dist)
+        result[n.site, 1] <- calcStability(mean(beta_pred),
+                                           mean.measured.dist,
+                                           symmetric)
     }
     colnames(result)[1] <- "stability_RF"
     rownames(result) <- sitenames

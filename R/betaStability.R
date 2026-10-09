@@ -13,6 +13,8 @@
 #' provided, computed from envmeta using euclidean distance on range-normalized
 #' envmeta.
 #' @param sitenames The names of the site (optional, default: NULL)
+#' @param symmetric Whether to use symmetric algorithm in the calculating
+#' (optional, default: FALSE)
 #' @param method A character string or vector specifying the prediction
 #' method(s) to use. Available options: "linearPred", "mlPred", "glmPred",
 #' "gamPred", "gdmPred", "rfPred", "xgboostPred". Use "all" to run all methods.
@@ -64,6 +66,7 @@ betaStability <- function(comtable = NULL,
     comdist = NULL,
     envdist = NULL,
     sitenames = NULL,
+    symmetric = FALSE,
     method = "linearPred",
     X = NULL,
     Y = NULL,
@@ -120,21 +123,24 @@ betaStability <- function(comtable = NULL,
                 linearPred(
                     comdist = comdist,
                     envdist = envdist,
-                    sitenames = sitenames
+                    sitenames = sitenames,
+                    symmetric  = symmetric
                 )
             },
             "mlPred" = {
                 mlPred(
                     comdist = comdist,
                     envmeta = envmeta,
-                    sitenames = sitenames
+                    sitenames = sitenames,
+                    symmetric  = symmetric
                 )
             },
             "glmPred" = {
                 glmPred(
                     comdist = comdist,
                     envmeta = envmeta,
-                    sitenames = sitenames
+                    sitenames = sitenames,
+                    symmetric  = symmetric
                 )
             },
             "gamPred" = {
@@ -143,6 +149,7 @@ betaStability <- function(comtable = NULL,
                     envmeta = envmeta,
                     comdist = comdist,
                     sitenames = sitenames,
+                    symmetric  = symmetric,
                     GAM.dist.method = GAM.dist.method
                 )
             },
@@ -151,6 +158,7 @@ betaStability <- function(comtable = NULL,
                     comdist = comdist,
                     envmeta = envmeta,
                     sitenames = sitenames,
+                    symmetric  = symmetric,
                     X = X,
                     Y = Y,
                     geo_enabled = geo_enabled
@@ -161,6 +169,7 @@ betaStability <- function(comtable = NULL,
                     comdist = comdist,
                     envmeta = envmeta,
                     sitenames = sitenames,
+                    symmetric  = symmetric,
                     seed = seed
                 )
             },
@@ -169,11 +178,15 @@ betaStability <- function(comtable = NULL,
                     comdist = comdist,
                     envmeta = envmeta,
                     sitenames = sitenames,
+                    symmetric  = symmetric,
                     seed = seed,
                     params = xgboost.params
                 )
             }
         )
+        if(is.null(rownames(result))) {
+          rownames(result) <- seq_len(nrow(result))
+        }
         return(result)
     }
 
@@ -194,13 +207,4 @@ betaStability <- function(comtable = NULL,
         return(combined_result)
     }
 }
-
-#   #### testable data ####
-#   # HSAUR3::birds, gardenflowers, watervoles
-#
-#   #### TODO: predict community then calculate diversity ####
-#   # MicroEcoTools
-#   # specificity
-#   # microbiomeSeq
-
 

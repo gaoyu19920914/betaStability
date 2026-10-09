@@ -10,6 +10,7 @@ betaStability(
   comdist = NULL,
   envdist = NULL,
   sitenames = NULL,
+  symmetric = FALSE,
   method = "linearPred",
   X = NULL,
   Y = NULL,
@@ -33,6 +34,9 @@ provided, computed from envmeta using euclidean distance on range-normalized
 envmeta.}
 
 \item{sitenames}{The names of the site (optional, default: NULL)}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating
+(optional, default: FALSE)}
 
 \item{method}{A character string or vector specifying the prediction
 method(s) to use. Available options: "linearPred", "mlPred", "glmPred",

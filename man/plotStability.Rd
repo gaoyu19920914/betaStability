@@ -2,32 +2,56 @@
 % Please edit documentation in R/plotStability.R
 \name{plotStability}
 \alias{plotStability}
+\alias{plotStabilityMap}
 \title{Plot Stability Results}
 \usage{
-plotStability(stability_result, sitenames = NULL)
+plotStability(stability_result, coords = NULL, sitenames = NULL, elev = FALSE)
+
+plotStabilityMap(stability_result, coords, sitenames = NULL, elev = FALSE)
 }
 \arguments{
-\item{stability_result}{The output from \code{betaStability()} function.}
+\item{stability_result}{The output from \code{betaStability()}.}
+
+\item{coords}{Optional data frame of site coordinates. Columns may be named
+\code{x}/\code{y}, \code{X}/\code{Y}, \code{lon}/\code{lat}, or
+\code{longitude}/\code{latitude}; they are normalised internally. When
+supplied, \code{plotStability()} behaves like \code{plotStabilityMap()}.}
 
 \item{sitenames}{Optional vector of site names. If not provided, uses
-rownames from stability_result. Users shall make sure the provided sitenames
-correspond to the rownames of stability_result in the correct order.}
+rownames from \code{stability_result}. Users shall make sure the provided
+sitenames correspond to the rownames of \code{stability_result} in the
+correct order.}
+
+\item{elev}{Logical. Only used when \code{coords} is supplied. If
+\code{TRUE}, an elevation raster is drawn behind the points using
+\pkg{elevatr}.}
 }
 \value{
-A ggplot2 plot object.
+A \pkg{ggplot2} plot object.
 }
 \description{
-This function takes the output of \code{betaStability()} and creates a point plot
-using ggplot2.
+Creates a point plot of the stability results produced by
+\code{betaStability()}. If a \code{coords} argument is supplied, a map of
+the sites is drawn instead (optionally with an elevation raster as
+background).
 }
 \examples{
 library(vegan)
+library(ggplot2)
 data(varespec)
 data(varechem)
+data(varecoords)
 results <- betaStability(
     comtable = varespec,
     envmeta = varechem, method = c("linearPred", "mlPred")
 )
 plotStability(results)
+plotStability(results, coords = varecoords)
+\dontrun{
+plotStability(results, coords = varecoords, elev = TRUE)
+}
+
+# Alias
+plotStabilityMap(results, varecoords)
 
 }

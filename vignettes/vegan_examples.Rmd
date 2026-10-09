@@ -23,7 +23,7 @@ multiple datasets (BCI, dune, and mite) from the vegan package.
 
 ## Installation
 
-First, install the package from GitHub:
+First, install the package from GitHub or from BioConductor:
 
 ```{r installation, eval = FALSE}
 # Install from GitHub
@@ -36,6 +36,7 @@ First, install the package from GitHub:
 # BiocManager::install("betaStability")
 ```
 
+
 ## Loading Required Packages
 
 Load the BetaStability package and the vegan package for test data:
@@ -44,6 +45,7 @@ Load the BetaStability package and the vegan package for test data:
 library(betaStability)
 library(vegan)
 library(ggplot2)
+library(sf)
 data("BCI", "BCI.env", "mite", "mite.env", "dune", "dune.env")
 ```
 
@@ -79,6 +81,18 @@ stability_BCI_linear <- betaStability(
 # Inspect the result
 head(stability_BCI_linear)
 length(stability_BCI_linear)
+
+BCI.coords <- st_as_sf(BCI.env, coords = c("UTM.EW", "UTM.NS"), crs = 32617)
+BCI.coords <- st_transform(BCI.coords, 4326)
+BCI.longlat <- st_coordinates(BCI.coords)
+BCI.longlat <- as.data.frame(BCI.longlat)
+rownames(BCI.longlat) <- seq_len(nrow(BCI.longlat))
+BCI.longlat$site <- rownames(BCI.longlat)
+plotStabilityMap(stability_BCI_linear, 
+                 BCI.longlat, 
+                 sitenames = paste("site", rownames(BCI.longlat)),
+                 elev = FALSE
+                 )
 ```
 
 ### Dune Dataset with linearPred

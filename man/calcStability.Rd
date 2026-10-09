@@ -4,12 +4,15 @@
 \alias{calcStability}
 \title{calculate stability based on predicted and measured distances.}
 \usage{
-calcStability(predicted.dist, measured.dist)
+calcStability(predicted.dist, measured.dist, symmetric = FALSE)
 }
 \arguments{
 \item{predicted.dist}{The predicted distance (shall be in range 0~1)}
 
 \item{measured.dist}{The measured distance (shall be in range 0~1)}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating
+(optional, default: FALSE).}
 }
 \value{
 a numeric value of stability for the site in range [-1, 1].
@@ -24,9 +27,14 @@ positive. The stability value is normalized to be between -1 and 1, where -1
 indicates the least stable (measured distance is much greater than predicted)
 and 1 indicates the most stable (measured distance is much less than
 predicted).
+To avoid magnifying the deviations near 0 and 1 of the predicted.dist, a
+symmetric algorithm is introduced without changing the range of the
+calculated stability value (-1 to 1).
 }
 \examples{
 calcStability(predicted.dist = 0.3, measured.dist = 0.5)
 calcStability(predicted.dist = 0.3, measured.dist = 0.1)
+calcStability(predicted.dist = 0.3, measured.dist = 0.5, symmetric = TRUE)
+calcStability(predicted.dist = 0.3, measured.dist = 0.1, symmetric = TRUE)
 
 }

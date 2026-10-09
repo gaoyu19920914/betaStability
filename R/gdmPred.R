@@ -13,6 +13,7 @@
 #' @param X The X coordinates of the sites (optional, default: NULL)
 #' @param Y The Y coordinates of the sites (optional, default: NULL)
 #' @param geo_enabled Whether to include geographic info  (default: TRUE)
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_get
 #' @importFrom gdm formatsitepair gdm
@@ -40,7 +41,8 @@ gdmPred <- function(
     sitenames = NULL,
     X = NULL,
     Y = NULL,
-    geo_enabled = TRUE
+    geo_enabled = TRUE,
+    symmetric = FALSE
 ) {
     if (is.null(sitenames)) {
         if (identical(labels(comdist), rownames(envmeta))) {
@@ -98,7 +100,9 @@ gdmPred <- function(
         othersites <- setdiff(sitenames, sitename)
         selected.dist <- dist_get(comdist, sitename, othersites)
         mean.measured.dist <- mean(selected.dist)
-        result[n.site, 1] <- calcStability(predicted.dist, mean.measured.dist)
+        result[n.site, 1] <- calcStability(predicted.dist,
+                                           mean.measured.dist,
+                                           symmetric)
     }
 
     colnames(result)[1] <- "stability_GDM"

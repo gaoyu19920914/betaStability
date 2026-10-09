@@ -9,26 +9,38 @@ export(linearPred)
 export(mlPred)
 export(plotCorrelation)
 export(plotStability)
+export(plotStabilityMap)
 export(rfPred)
 export(xgboostPred)
 import(ggplot2)
 importFrom(BBmisc,normalize)
-importFrom(gdm,formatsitepair)
-importFrom(gdm,gdm)
+importFrom(elevatr,get_elev_raster)
+importFrom(gdm,
+  formatsitepair,
+  gdm
+)
 importFrom(glmnet,cv.glmnet)
+importFrom(grDevices,terrain.colors)
 importFrom(mgcv,gam)
 importFrom(randomForest,randomForest)
+importFrom(raster,as.data.frame)
 importFrom(reshape2,melt)
-importFrom(stats,as.formula)
-importFrom(stats,coef)
-importFrom(stats,cor.test)
-importFrom(stats,dist)
-importFrom(stats,lm)
-importFrom(stats,na.omit)
-importFrom(stats,predict)
-importFrom(stats,setNames)
-importFrom(usedist,dist_get)
-importFrom(usedist,dist_subset)
+importFrom(stats,
+  as.formula,
+  coef,
+  cor.test,
+  dist,
+  lm,
+  na.omit,
+  predict,
+  setNames
+)
+importFrom(usedist,
+  dist_get,
+  dist_subset
+)
 importFrom(vegan,vegdist)
-importFrom(xgboost,xgb.DMatrix)
-importFrom(xgboost,xgb.train)
+importFrom(xgboost,
+  xgb.DMatrix,
+  xgb.train
+)

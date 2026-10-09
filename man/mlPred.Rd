@@ -4,7 +4,7 @@
 \alias{mlPred}
 \title{calculation of stability using multiple linear regression model.}
 \usage{
-mlPred(comdist, envmeta, sitenames = NULL)
+mlPred(comdist, envmeta, sitenames = NULL, symmetric = FALSE)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -12,6 +12,8 @@ mlPred(comdist, envmeta, sitenames = NULL)
 \item{envmeta}{The environmental metadata table/matrix}
 
 \item{sitenames}{The names of the site}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site

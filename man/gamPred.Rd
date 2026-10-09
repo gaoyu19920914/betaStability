@@ -9,7 +9,8 @@ gamPred(
   envmeta,
   comdist = NULL,
   sitenames = NULL,
-  GAM.dist.method = "manhattan"
+  GAM.dist.method = "manhattan",
+  symmetric = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ gamPred(
 \item{sitenames}{The names of the site (optional, default: NULL)}
 
 \item{GAM.dist.method}{The method for calculating dist (default: "manhattan")}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site

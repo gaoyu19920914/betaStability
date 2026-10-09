@@ -17,3 +17,20 @@ test_that("linear prediction no error", {
         )
     )
 })
+
+
+test_that("linear prediction no error with symmetric ON", {
+  expect_no_error(
+    linearPred(
+      vegdist(varespec, "bray"),
+      dist(
+        BBmisc::normalize(varechem,
+                          method = "range",
+                          margin = 2
+        ),
+        method = "euclidean"
+      ),
+      symmetric = TRUE
+    )
+  )
+})

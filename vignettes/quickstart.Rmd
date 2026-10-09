@@ -77,8 +77,25 @@ result_linear <- betaStability(
 )
 
 # Inspect the result
-head(result_linear)
-length(result_linear)
+length(result_linear$stability_Linear)
+
+# Calculate stability with linearPred with symmetric algorithm
+result_linear_symmetric <- betaStability(
+    comtable = varespec,
+    envmeta = varechem,
+    method = "linearPred",
+    symmetric = TRUE
+)
+
+# Calculate the correlations between the results
+corr_pearson <- cor.test(result_linear$stability_Linear, 
+                         result_linear_symmetric$stability_Linear, 
+                         method = c("pearson"))
+corr_spearman <- cor.test(result_linear$stability_Linear, 
+                          result_linear_symmetric$stability_Linear, 
+                          method = c("spearman"))
+corr_pearson
+corr_spearman
 ```
 
 ## Calculating Stability with Multiple Methods
@@ -139,7 +156,7 @@ p3
 ```
 Visualize the correlations between different stability quantifying methods 
 using the `plotCorrelation` function:
-```{r plot-all}
+```{r plot-correlation}
 # Plot stability correlations between all pairs of methods
 p4 <- plotCorrelation(results_all)
 p4
@@ -161,7 +178,7 @@ p5
 
 ## Conclusion
 
-The BetaStability package provides a comprehensive framework for calculating 
+The betaStability package provides a comprehensive framework for calculating 
 and visualizing site stability using various prediction methods. Key features 
 include:
 

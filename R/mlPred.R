@@ -10,6 +10,7 @@
 #' @param comdist The community dissimilarity matrix
 #' @param envmeta The environmental metadata table/matrix
 #' @param sitenames The names of the site
+#' @param symmetric Whether to use symmetric algorithm in the calculating.
 #'
 #' @importFrom usedist dist_subset dist_get
 #' @importFrom BBmisc normalize
@@ -28,7 +29,8 @@
 mlPred <- function(
     comdist,
     envmeta,
-    sitenames = NULL
+    sitenames = NULL,
+    symmetric = FALSE
 ) {
     result <- data.frame(matrix(NA, nrow = length(labels(comdist)), ncol = 1))
     if (is.null(sitenames)) {
@@ -93,7 +95,9 @@ mlPred <- function(
         othersites <- setdiff(sitenames, sitename)
         selected.dist <- dist_get(comdist, sitename, othersites)
         mean.measured.dist <- mean(selected.dist)
-        result[n.site, 1] <- calcStability(predicted.dist, mean.measured.dist)
+        result[n.site, 1] <- calcStability(predicted.dist,
+                                           mean.measured.dist,
+                                           symmetric)
     }
     colnames(result)[1] <- "stability_ML"
     rownames(result) <- sitenames

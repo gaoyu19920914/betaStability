@@ -62,6 +62,7 @@ pred2matrix <- function(pred, site_ids) {
 }
 
 
-# declaration check for global variables appearred in plotStability.R
+# declaration check for global variables appeared in plotStability.R
 utils::globalVariables(c("site", "stability", "method"))
 utils::globalVariables(c("label", "xval", "xvar", "yval", "yvar"))
+utils::globalVariables(c("elevation", "x", "y"))

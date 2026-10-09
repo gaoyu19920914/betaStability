@@ -4,7 +4,14 @@
 \alias{xgboostPred}
 \title{calculation of stability using a xgboost model.}
 \usage{
-xgboostPred(comdist, envmeta, sitenames = NULL, seed = NULL, params = NULL)
+xgboostPred(
+  comdist,
+  envmeta,
+  sitenames = NULL,
+  seed = NULL,
+  params = NULL,
+  symmetric = FALSE
+)
 }
 \arguments{
 \item{comdist}{The community dissimilarity matrix}
@@ -17,6 +24,8 @@ xgboostPred(comdist, envmeta, sitenames = NULL, seed = NULL, params = NULL)
 
 \item{params}{A list of parameters for the xgboost model.
 If NULL, default parameters will be used.}
+
+\item{symmetric}{Whether to use symmetric algorithm in the calculating.}
 }
 \value{
 a column vector of predicted stability values for each site
